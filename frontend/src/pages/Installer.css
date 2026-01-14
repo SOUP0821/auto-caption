@@ -1,0 +1,239 @@
+.installer-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background:
+        radial-gradient(ellipse at top, rgba(64, 224, 208, 0.05) 0%, transparent 50%),
+        var(--color-bg-primary);
+    overflow-y: auto;
+}
+
+.installer-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.installer-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.installer-header .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.installer-header .logo svg {
+    width: 56px;
+    height: 56px;
+}
+
+.installer-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.text-secondary {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.status-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.status-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    transition: all var(--transition-normal);
+}
+
+.status-card.ok {
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.status-card.warning {
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.status-card.error {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    color: var(--color-text-primary);
+}
+
+.status-header svg:first-child {
+    width: 20px;
+    height: 20px;
+}
+
+.status-header span {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.status-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.status-icon.success {
+    color: var(--color-success);
+}
+
+.status-icon.warning {
+    color: var(--color-warning);
+}
+
+.status-icon.error {
+    color: var(--color-error);
+}
+
+.status-icon.loading {
+    color: var(--color-turquoise-400);
+    animation: spin 1s linear infinite;
+}
+
+.status-detail {
+    font-size: 0.825rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.status-detail small {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.btn-lg {
+    padding: 14px 28px;
+    font-size: 1rem;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+.install-message {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+}
+
+.install-message.complete {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-success);
+}
+
+.install-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--color-error);
+}
+
+.hint-text {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: 6px;
+}
+
+.system-info {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    padding: 10px;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.installer-actions {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.warning-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-md);
+    color: var(--color-error);
+    font-size: 0.9rem;
+}
+
+.warning-box svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.installer-note {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+.installer-note small {
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-height: 700px) {
+    .installer-page {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .installer-header {
+        margin-bottom: 24px;
+    }
+
+    .installer-header .logo svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .installer-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .status-card {
+        padding: 12px;
+    }
+}

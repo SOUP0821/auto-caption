@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# venv
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project Specific
+backend/models/*.gguf
+backend/models/*.bin
+backend/projects/*
+!backend/projects/.gitkeep
+backend/temp/
+*.log
+.DS_Store
+
+# Frontend build
+frontend/dist/
+frontend/build/
