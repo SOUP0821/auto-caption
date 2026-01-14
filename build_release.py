@@ -29,6 +29,12 @@ def print_step(message):
     print(f" {message}")
     print(f"{'='*50}\n")
 
+def get_venv_python():
+    venv_python = BACKEND_DIR / "venv" / "Scripts" / "python.exe"
+    if not venv_python.exists():
+        return sys.executable
+    return str(venv_python)
+
 def check_requirements():
     print_step("Checking Requirements")
     
@@ -40,14 +46,17 @@ def check_requirements():
         print("[ERROR] Node.js not found! Please install Node.js.")
         sys.exit(1)
         
-    # Check PyInstaller
+    # Check PyInstaller in VENV
+    python_exe = get_venv_python()
+    print(f"Using Python: {python_exe}")
+    
     try:
-        import PyInstaller
-        print("[OK] PyInstaller detected")
-    except ImportError:
-        print("[WARN] PyInstaller not found. Installing...")
-        subprocess.run([sys.executable, "-m", "pip", "install", "pyinstaller"], check=True)
-        print("[OK] PyInstaller installed")
+        subprocess.run([python_exe, "-m", "PyInstaller", "--version"], check=True, capture_output=True)
+        print("[OK] PyInstaller detected in venv")
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        print("[WARN] PyInstaller not found in venv. Installing...")
+        subprocess.run([python_exe, "-m", "pip", "install", "pyinstaller"], check=True)
+        print("[OK] PyInstaller installed in venv")
 
 def build_frontend():
     print_step("Building Frontend (React)")
@@ -100,19 +109,14 @@ def build_executable():
     shutil.rmtree(BACKEND_DIR / "build", ignore_errors=True)
     shutil.rmtree(BACKEND_DIR / "dist", ignore_errors=True)
     
-    # Determine VENV Python path
-    venv_python = BACKEND_DIR / "venv" / "Scripts" / "python.exe"
-    if not venv_python.exists():
-        # Fallback to current sys.executable if venv not found (e.g. typical manual run)
-        venv_python = Path(sys.executable)
-        print(f"[WARN] Venv python not found at {venv_python}, using {sys.executable}")
-    else:
-        print(f"[OK] Using venv python: {venv_python}")
+    # Determine Python path
+    python_exe = get_venv_python()
+    print(f"[OK] Using python: {python_exe}")
 
     # PyInstaller arguments
     # We use --onedir data because --onefile is too slow to launch
     args = [
-        str(venv_python), "-m", "PyInstaller",
+        python_exe, "-m", "PyInstaller",
         "--noconfirm",
         "--clean",
         "--name", BUILD_NAME,
