@@ -1,5 +1,6 @@
 """AutoCaption Backend - FastAPI Application."""
 import os
+import sys
 import asyncio
 from pathlib import Path
 from typing import List, Optional
@@ -516,4 +517,14 @@ if __name__ == "__main__":
     if os.environ.get("LAUNCH_BROWSER") == "1":
         threading.Timer(1.5, open_browser).start()
         
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Detect if we are running as a frozen executable (PyInstaller)
+    is_frozen = getattr(sys, 'frozen', False)
+    
+    # Configure logging safely
+    log_config = uvicorn.config.LOGGING_CONFIG
+    if is_frozen:
+        # Disable colors in frozen mode to prevent isatty errors
+        log_config["formatters"]["default"]["use_colors"] = False
+        log_config["formatters"]["access"]["use_colors"] = False
+        
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_config=log_config)
