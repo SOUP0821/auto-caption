@@ -56,3 +56,9 @@ backend/temp/
 # Frontend build
 frontend/dist/
 frontend/build/
+
+# Backend Release / PyInstaller builds
+backend/build/
+backend/dist/
+backend/*.spec
+dist_release/

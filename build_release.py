@@ -100,10 +100,19 @@ def build_executable():
     shutil.rmtree(BACKEND_DIR / "build", ignore_errors=True)
     shutil.rmtree(BACKEND_DIR / "dist", ignore_errors=True)
     
+    # Determine VENV Python path
+    venv_python = BACKEND_DIR / "venv" / "Scripts" / "python.exe"
+    if not venv_python.exists():
+        # Fallback to current sys.executable if venv not found (e.g. typical manual run)
+        venv_python = Path(sys.executable)
+        print(f"[WARN] Venv python not found at {venv_python}, using {sys.executable}")
+    else:
+        print(f"[OK] Using venv python: {venv_python}")
+
     # PyInstaller arguments
     # We use --onedir data because --onefile is too slow to launch
     args = [
-        "pyinstaller",
+        str(venv_python), "-m", "PyInstaller",
         "--noconfirm",
         "--clean",
         "--name", BUILD_NAME,
