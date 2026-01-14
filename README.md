@@ -8,15 +8,15 @@ A modern video captioning application powered by OpenAI Whisper and Hunyuan MT C
 
 ## Features
 
-- 🎬 **Video Upload**: Drag & drop or browse for video files
-- 🎤 **AI Transcription**: OpenAI Whisper (Tiny to Large V3 Turbo)
-- 🌍 **Translation**: 18+ languages via Hunyuan MT Chimera
-- ✏️ **Caption Editor**: Edit text and timing inline
-- 📺 **Live Preview**: Captions displayed on video in real-time
-- 💾 **SRT Export**: Download subtitles in standard format
-- 🎨 **Modern UI**: Dark theme with turquoise accents
-- ⚡ **GPU Acceleration**: CUDA support for fast processing
-- 🚀 **Easy Setup**: Interactive installer handles all dependencies
+- **Video Upload**: Drag & drop or browse for video files
+- **AI Transcription**: OpenAI Whisper (Tiny to Large V3 Turbo)
+- **Translation**: 18+ languages via Hunyuan MT Chimera
+- **Caption Editor**: Edit text and timing inline
+- **Live Preview**: Captions displayed on video in real-time
+- **SRT Export**: Download subtitles in standard format
+- **Modern UI**: Dark theme with turquoise accents
+- **GPU Acceleration**: CUDA support for fast processing
+- **Easy Setup**: Interactive installer handles all dependencies
 
 ## Quick Start
 
@@ -107,12 +107,12 @@ Open http://localhost:5173
 ### Whisper (Transcription)
 | Model | Parameters | Speed | Use Case |
 |-------|------------|-------|----------|
-| tiny | 39M | ⚡⚡⚡⚡ | Quick drafts |
-| base | 74M | ⚡⚡⚡ | Basic accuracy |
-| small | 244M | ⚡⚡ | Good balance |
-| medium | 769M | ⚡ | High accuracy |
-| large-v3-turbo | 809M | ⚡⚡ | Best speed/accuracy |
-| large-v3 | 1550M | 🐢 | Maximum accuracy |
+| tiny | 39M | Very Fast | Quick drafts |
+| base | 74M | Fast | Basic accuracy |
+| small | 244M | Moderate | Good balance |
+| medium | 769M | Slow | High accuracy |
+| large-v3-turbo | 809M | Fast | Best speed/accuracy |
+| large-v3 | 1550M | Very Slow | Maximum accuracy |
 
 ### Hunyuan MT Chimera (Translation)
 - 7B parameters, Q4_K_M quantized
