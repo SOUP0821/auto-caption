@@ -35,19 +35,19 @@ def check_requirements():
     # Check Node
     try:
         subprocess.run(["node", "-v"], check=True, capture_output=True)
-        print("✅ Node.js detected")
+        print("[OK] Node.js detected")
     except:
-        print("❌ Node.js not found! Please install Node.js.")
+        print("[ERROR] Node.js not found! Please install Node.js.")
         sys.exit(1)
         
     # Check PyInstaller
     try:
         import PyInstaller
-        print("✅ PyInstaller detected")
+        print("[OK] PyInstaller detected")
     except ImportError:
-        print("⚠️ PyInstaller not found. Installing...")
+        print("[WARN] PyInstaller not found. Installing...")
         subprocess.run([sys.executable, "-m", "pip", "install", "pyinstaller"], check=True)
-        print("✅ PyInstaller installed")
+        print("[OK] PyInstaller installed")
 
 def build_frontend():
     print_step("Building Frontend (React)")
@@ -66,10 +66,10 @@ def build_frontend():
     # Verify build
     dist = FRONTEND_DIR / "dist"
     if not dist.exists():
-        print("❌ Frontend build failed: dist folder not found")
+        print("[ERROR] Frontend build failed: dist folder not found")
         sys.exit(1)
         
-    print("✅ Frontend built successfully")
+    print("[OK] Frontend built successfully")
     return dist
 
 def clean_backend_static():
@@ -89,7 +89,7 @@ def copy_frontend_to_backend(frontend_dist, backend_static):
         else:
             shutil.copy2(item, backend_static / item.name)
             
-    print(f"✅ Copied frontend assets to {backend_static}")
+    print(f"[OK] Copied frontend assets to {backend_static}")
 
 def build_executable():
     print_step("Packaging Backend (PyInstaller)")
@@ -134,7 +134,7 @@ def build_executable():
     # Note on FFmpeg:
     # If ffmpeg is strictly local in backend/ffmpeg, verify it exists first
     if not (BACKEND_DIR / "ffmpeg").exists():
-        print("⚠️ Warning: local 'ffmpeg' folder not found in backend. App might need system FFmpeg.")
+        print("[WARN] Warning: local 'ffmpeg' folder not found in backend. App might need system FFmpeg.")
         # Remove the add-data arg for ffmpeg if not present
         args = [a for a in args if "ffmpeg" not in a]
     
@@ -144,10 +144,10 @@ def build_executable():
     # Verify Output
     dist_exe = BACKEND_DIR / "dist" / BUILD_NAME / f"{BUILD_NAME}.exe"
     if not dist_exe.exists():
-        print("❌ PyInstaller failed to create executable")
+        print("[ERROR] PyInstaller failed to create executable")
         sys.exit(1)
         
-    print(f"✅ Build successful: {dist_exe}")
+    print(f"[OK] Build successful: {dist_exe}")
     return BACKEND_DIR / "dist" / BUILD_NAME
 
 def finalize_release(build_dir):
@@ -166,7 +166,7 @@ def finalize_release(build_dir):
         f.write('set LAUNCH_BROWSER=1\n')
         f.write(f'start "" "{BUILD_NAME}.exe"\n')
     
-    print(f"✅ Release created at: {DIST_DIR}")
+    print(f"[OK] Release created at: {DIST_DIR}")
     print("You can zip this folder and share it!")
 
 def main():
@@ -180,7 +180,7 @@ def main():
     build_dir = build_executable()
     
     finalize_release(build_dir)
-    print_step("DONE! 🚀")
+    print_step("DONE!")
 
 if __name__ == "__main__":
     main()
