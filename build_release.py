@@ -113,6 +113,23 @@ def build_executable():
     python_exe = get_venv_python()
     print(f"[OK] Using python: {python_exe}")
 
+    # RESOLVE DLL ISSUES: Read pyvenv.cfg to find base python home
+    # This fixes 'No module named _socket' errors
+    venv_cfg = BACKEND_DIR / "venv" / "pyvenv.cfg"
+    base_search_paths = []
+    if venv_cfg.exists():
+        try:
+            with open(venv_cfg, "r") as f:
+                for line in f:
+                    if line.startswith("home ="):
+                        home_path = line.split("=", 1)[1].strip()
+                        base_search_paths.append(os.path.join(home_path, "DLLs"))
+                        base_search_paths.append(os.path.join(home_path, "Lib"))
+                        print(f"[OK] Found base python home: {home_path}")
+                        break
+        except Exception as e:
+            print(f"[WARN] Failed to read pyvenv.cfg: {e}")
+
     # PyInstaller arguments
     # We use --onedir data because --onefile is too slow to launch
     args = [
@@ -123,7 +140,13 @@ def build_executable():
         "--onedir",            # Directory based bundle (faster startup)
         "--windowed",          # No console window (optional, use --console for debug)
         "--icon=NONE",         # TODO: Add an icon
+    ]
+    
+    # Inject base paths
+    for p in base_search_paths:
+        args.extend(["--paths", p])
         
+    args.extend([
         # Include static files (frontend)
         "--add-data", f"static{os.pathsep}static",
         
@@ -142,7 +165,7 @@ def build_executable():
         
         # Main entry point
         "main.py"
-    ]
+    ])
     
     # Note on FFmpeg:
     # If ffmpeg is strictly local in backend/ffmpeg, verify it exists first
