@@ -168,6 +168,16 @@ AutoCaption/
 └── README.md
 ```
 
+## Building for Release
+
+To create a standalone executable for Windows:
+
+```bash
+python build_release.py
+```
+
+This will generate a `dist_release` folder containing the application. Zip this folder to distribute it.
+
 ## License
 
 MIT
